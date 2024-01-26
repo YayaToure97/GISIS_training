@@ -43,12 +43,38 @@ class Wavefield_1D():
         plt.show()
 
 
-class Wavefield_2D(Wavefield_1D):
+class Wavefield_2D():
     
     def __init__(self):
         super().__init__()
         
         self._type = "2D wave propagation in constant density acoustic isotropic media"    
+
+# Read the parameters from file
+self.nx=200
+self.nz=50
+
+self.model=np.zeros(nz)
+self.depth=np.arange(nz)*self.nx
+
+self.deep =[1500,1800,2000,2200,2500]
+self.Density =[1000,2100,2150,2180,2200]
+self.interfaces =[100,150,200,300] 
+
+Vp=np.zeros((nx,nz))
+Rho=np.zeros((nx,nz)) 
+
+
+for i in range(len(interfaces)):
+    vp[int(interfaces[i] / dh):] = velocidades[i+1]
+    rho[int(interfaces[i] / dh):] = densidades[i+1]
+
+plt.imshow(vp*rho)
+yaya=plt.colorbar(orientation ='horizontal')
+plt.xlabel('Distância')
+plt.ylabel('Profundidade')
+yaya.set_label('impedância')
+plt.show()
 
 
 class Wavefield_3D(Wavefield_2D):
