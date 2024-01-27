@@ -13,17 +13,17 @@ class Wavefield_1D():
         self.dt = 1e-3
         self.fmax = 30.0
         self.nz=1001 # Número total de pontos
-        self.dz=10   # Espaçamentos entre os pontos
+        self.dz=5   # Espaçamentos entre os pontos
         
-        self.interfaces= np.array([1000,1500,2000,2500]) # definições das interfaces
-        self.velocidades= np.array([1500,2000,2500,3000,3500]) # definições das velocidades
+        self.interfaces= np.array([500,1000,1500,2000]) # definições das interfaces
+        self.velocidades= np.array([1000,1500,2000,2500,3500]) # definições das velocidades
 
         self.depth = np.linspace(0,self.dz*self.nz,self.nz,endpoint=False) # definição da profundidade 
         self.model =   self.velocidades[0]*np.zeros(self.nz) ### criação de um modelo com  matriz vazia
         
 
-        self.fonte= [0,500,1000,2000] # posições das respectivas fontes
-        self.receptor=[1000,1500,2500,3000] # posições das respectivas receptores
+        self.fonte= np.array([100,200,300,400]) # posições das respectivas fontes
+        self.receptor=np.array([500,1000,1500,2500]) # posições das respectivas receptores
         
     def set_model(self):
         pass 
@@ -34,12 +34,15 @@ class Wavefield_1D():
     def plot_model(self):
         pass 
 
-        fig,ax = plt.subplots(num = 'model plot', figsize=(4,8),clear=True)
+        fig,ax = plt.subplots(num = 'model plot', figsize=(3,8),clear=True)
+
+        fonte_projecao=np.array(self.fonte/self.dz, dtype=int)
+        receptor_projecao=np.array(self.receptor/self.dz, dtype=int)
         
         ax.plot(self.model,self.depth)
-        ax.scatter(self.fonte,self.interfaces,color='black', marker='*', label='Fonte')
-        ax.scatter(self.receptor,self.interfaces,color='red', marker='v', label='Receptor')
-        ax.set_title('model plot',fontsize=18)
+        ax.scatter(self.model[fonte_projecao],self.fonte,color='black', marker='*', label='Fonte')
+        ax.scatter(self.model[receptor_projecao],self.receptor,color='red', marker='v', label='Receptor')
+        ax.set_title('model',fontsize=18)
         ax.set_xlabel('Velocity [m/s]',fontsize=15)
         ax.set_ylabel('depth [m]',fontsize =15) 
 
@@ -47,7 +50,9 @@ class Wavefield_1D():
 
         ax.invert_yaxis()
         fig.tight_layout()
+        ax.grid(True)
         plt.show()
+        plt.savefig('modelo_velocidade _1D.png')
             
 
     def get_type(self):
@@ -77,6 +82,7 @@ class Wavefield_1D():
          ax.set_xlim([0, np.max(t)])
         
          fig.tight_layout()
+         plt.savefig('Wavelet.png')
          plt.show() 
 
 
