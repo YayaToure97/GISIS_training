@@ -19,22 +19,26 @@ class Wavefield_1D():
         self.velocidades= np.array([1500,2000,2500,3000,3500]) # definições das velocidades
 
         self.depth = np.linspace(0,self.dz*self.nz,self.nz,endpoint=False) # definição da profundidade 
-        #self.depth = np.arange(self.nz)*self.nz
         self.model =   self.velocidades[0]*np.zeros(self.nz) ### criação de um modelo com  matriz vazia
-    
+        
+
+        self.fonte= [0,500,1000,2000] # posições das respectivas fontes
+        self.receptor=[1000,1500,2500,3000] # posições das respectivas receptores
+        
     def set_model(self):
         pass 
 
         for i in range(len(self.interfaces)):
             self.model[int(self.interfaces[i] / self.dz):] = self.velocidades[i+1] 
     
-
     def plot_model(self):
         pass 
 
         fig,ax = plt.subplots(num = 'model plot', figsize=(4,8),clear=True)
         
         ax.plot(self.model,self.depth)
+        ax.scatter(self.fonte,self.interfaces,color='black', marker='*', label='Fonte')
+        ax.scatter(self.receptor,self.interfaces,color='red', marker='v', label='Receptor')
         ax.set_title('model plot',fontsize=18)
         ax.set_xlabel('Velocity [m/s]',fontsize=15)
         ax.set_ylabel('depth [m]',fontsize =15) 
