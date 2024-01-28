@@ -17,6 +17,9 @@ def simulation():
     myWave[id].set_model()
     myWave[id].plot_model()
 
+    myWave[id].set_wave_equation()
+    myWave[id].plot_wave_equation()
+
 
 if __name__ == "__main__":
     simulation()

@@ -33,6 +33,41 @@ class Wavefield_1D():
     
     def plot_model(self):
         pass 
+    def set_wave_equation(self): # Equação da onda utilizando a solução análitica
+
+
+        self.nt = 101  # grid in space
+        self.nx = 51 # grid in time
+        self.a = 0
+        self.b = 1
+        self.t0 = 0
+        self.tf = 0.0005
+        self.dx = (self.b - self.a) / (self.nx - 1)
+        self.dt = (self.tf - self.t0) / (self.nt - 1)
+        self.x = np.linspace(self.a, self.nx*self.dx, self.nx, endpoint=True)  # Corrected
+        self.t = np.linspace(self.t0, self.nt*self.dt, self.nt, endpoint=True)  # Corrected
+
+    def plot_wave_equation(self):
+        pass 
+        self.s = self.dt / self.dx**2
+        self.UA = np.zeros((self.nx, self.nt))  # Corrected
+
+        for i in range(self.nx):
+            for j in range(self.nt):
+                self.UA[i, j] = np.sin(np.pi * self.x[i]) * np.exp(-np.pi**2 * self.t[j])  # Corrected
+
+
+
+        fig,ax = plt.subplots(num = 'wave_equation', figsize=(3,8),clear=True)
+
+        ax.contourf(self.UA,200,cmap='viridis')
+        ax.set_title('Analytical solution',fontsize=18)
+        ax.set_xlabel('X [m]',fontsize=15)
+        ax.set_ylabel('Y [s]',fontsize =15) 
+        plt.show()
+                
+        
+
 
         fig,ax = plt.subplots(num = 'model plot', figsize=(3,8),clear=True)
 
@@ -52,9 +87,11 @@ class Wavefield_1D():
         fig.tight_layout()
         ax.grid(True)
         plt.show()
-        plt.savefig('modelo_velocidade _1D.png')
-            
+        plt.savefig('modelo_velocidade _1D.png') 
 
+   
+
+    
     def get_type(self):
          print(self._type)
 
