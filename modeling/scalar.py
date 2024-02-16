@@ -9,9 +9,9 @@ class Wavefield_1D():
 
         # TODO: read parameters from a file
 
-        self.nt = 1001
-        self.dt = 1e-3
-        self.fmax = 30.0
+        self.nt = 1001 # Número total de pontos
+        self.dt = 1e-3 # Espaçamento entre os pontos
+        self.fmax = 30.0 # Frequência máxima
         self.nz=1001 # Número total de pontos
         self.dz=5   # Espaçamentos entre os pontos
         
@@ -36,12 +36,12 @@ class Wavefield_1D():
     def set_wave_equation(self): # Equação da onda utilizando a solução análitica
 
 
-        self.nt = 101  # grid in space
-        self.nx = 51 # grid in time
+        self.nx = 300  # grid in space
+        self.nt = 30 # grid in time
         self.a = 0
         self.b = 1
         self.t0 = 0
-        self.tf = 0.0005
+        self.tf = 0.5
         self.dx = (self.b - self.a) / (self.nx - 1)
         self.dt = (self.tf - self.t0) / (self.nt - 1)
         self.x = np.linspace(self.a, self.nx*self.dx, self.nx, endpoint=True)  # Corrected
@@ -60,7 +60,7 @@ class Wavefield_1D():
 
         fig,ax = plt.subplots(num = 'wave_equation', figsize=(3,8),clear=True)
 
-        ax.contourf(self.UA,200,cmap='viridis')
+        ax.contourf(self.UA,50,cmap='viridis')
         ax.set_title('Analytical solution',fontsize=18)
         ax.set_xlabel('X [m]',fontsize=15)
         ax.set_ylabel('Y [s]',fontsize =15) 
